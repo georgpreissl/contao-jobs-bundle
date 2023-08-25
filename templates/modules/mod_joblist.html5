@@ -1,0 +1,57 @@
+
+<div class="<?php echo $this->class; ?> block job_teaser_wrap"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+	<?php if ($this->headline): ?>
+		<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+	<?php endif; ?>
+
+	<?php 
+
+	$i=1;
+
+	if ($this->jobs): foreach ($this->jobs as $job): 
+
+
+
+	if($i%2 == 1) {
+	      echo '<div class="row">';
+	}
+	?>
+	<div class="col-xs-12 col-md-6">
+		<div class="job_teaser">
+
+			<?php 
+			// printf('<pre>%s</pre>', print_r($this,true));
+			$hl1 = $job['title'];
+			$hl2 = $job['gender'] ? " ".$job['gender'] : "";
+			$hl3 = $job['location'] ? " ".$job['location'] : "";
+			 ?>
+			<a href="<?php echo $job['link']; ?>">
+				<h1><span class="highlighted"><?= $hl1 ?></span><?= $hl2 ?><?= $hl3 ?></h1>
+			</a>
+			
+			<p class="job_ad_date"><?= $job['jobAdDate'] ?></p>
+
+			<?php if ($job['entryDate']): ?>
+			<p class="entry_date">Eintritt: <?= $job['entryDate'] ?></p>
+			<?php endif; ?>
+
+			<?php if ($job['teaserText']): ?>
+			<p class="teaser_text"><?= $job['teaserText'] ?></p>
+			<?php endif; ?>
+
+			<?php if ($job['text']): ?>
+			<a class="job_link arrow_link hover_color_v1" href="<?php echo $job['link']; ?>">Details zur Ausschreibung</a>
+			<?php endif; ?>
+		</div>
+	</div>
+
+	<?php 
+if($i%2 == 0) {
+	      echo '</div>';
+	}
+	$i++;
+
+	endforeach; endif; ?>
+
+</div>
