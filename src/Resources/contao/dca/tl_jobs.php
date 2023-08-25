@@ -37,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 		// 	'fields'                  => array('sorting'),
 		// 	'headerFields'            => array('title'),
 		// 	'panelLayout'             => 'search,limit',
-		// 	'child_record_callback'   => array('tl_jobs', 'generateSongRow')
+		// 	'child_record_callback'   => array('tl_jobs', 'generatejobRow')
 		// ),
 		'label' => array
 		(
@@ -211,12 +211,12 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'                    => array(
-														'fieldType'=>'checkbox',
-														'multiple'=>true,
-														'files'=>true,
-														'filesOnly'=>true, 
-														'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']
-													),
+											'fieldType'=>'checkbox',
+											'multiple'=>true,
+											'files'=>true,
+											'filesOnly'=>true, 
+											'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']
+										),
 			'sql'                     => "blob NULL",
 		),
 		'text' => array
@@ -248,18 +248,12 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 
 
 
-
-/**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Leo Feyer <https://github.com/leofeyer>
- */
 class tl_jobs extends Backend
 {
 
 
 
-	public function generateSongRow($arrRow)
+	public function generatejobRow($arrRow)
 	{
 		return '<div>' . $arrRow['title'] . ' <span style="padding-left:3px;color:#b3b3b3;">[' . $arrRow['title'] . ']</span></div>';
 	}

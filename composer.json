@@ -1,0 +1,41 @@
+{
+    "name": "georgpreissl/contao-jobs-bundle",
+	"homepage":"https://github.com/georgpreissl/contao-jobs-bundle",        
+    "description": "Contao bundle to show employees in the frontend.",
+    "keywords": ["jobs", "job ad"],
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Georg Preissl",
+            "homepage": "https://github.com/georgpreissl",
+            "role":"Developer"                        
+        }
+    ],
+    "support":{
+        "website":"https://www.georg-preissl.at",
+        "issues":"https://github.com/georgpreissl/contao-jobs-bundle/issues",
+        "source":"https://github.com/georgpreissl/contao-jobs-bundle"
+    },
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "contao/core-bundle": "~4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "GeorgPreissl\\Jobs\\": "src/"
+        },
+        "classmap": [
+            "src/Resources/contao/"
+        ],
+        "exclude-from-classmap": [
+            "src/Resources/contao/config/",
+            "src/Resources/contao/dca/",
+            "src/Resources/contao/languages/",
+            "src/Resources/contao/templates/"
+        ]
+    },
+    "extra": {
+        "contao-manager-plugin": "GeorgPreissl\\Jobs\\ContaoManager\\Plugin"
+    }
+}
