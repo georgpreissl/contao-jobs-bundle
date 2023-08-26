@@ -1,0 +1,12 @@
+
+<div class="layout_short <?= $this->class ?>">
+
+
+
+  <h2><?= $this->title ?></h2>
+  <?php if($this->link): ?>
+		<a class="staff_short__link" href="<?= $this->link ?>" title="Mehr über den Job erfahren" >Mehr zum Job</a>
+	<?php endif; ?>
+	<?php //$this->showTemplateVars() ?>
+
+</div>

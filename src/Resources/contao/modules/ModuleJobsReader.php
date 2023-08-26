@@ -1,20 +1,12 @@
 <?php
 
-namespace Contao;
+namespace GeorgPreissl\Jobs;
 
-/**
- * Class ModuleJobReader
- *
- * Front end module "job reader".
- */
-class ModuleJobReader extends \Module
+
+class ModuleJobsReader extends ModuleJobs
 {
 
-	/**
-	 * Template
-	 * @var string
-	 */
-	protected $strTemplate = 'mod_jobreader';
+	protected $strTemplate = 'mod_jobsreader';
 
 
 	/**
@@ -27,7 +19,7 @@ class ModuleJobReader extends \Module
 		{
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['job_reader'][0]) . ' ###';
+			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['jobsreader'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
 			$objTemplate->id = $this->id;
 			$objTemplate->link = $this->name;
@@ -36,17 +28,16 @@ class ModuleJobReader extends \Module
 			return $objTemplate->parse();
 		}
 
-		// Return if there are no items
-		if (!\Input::get('items'))
-		{
-			// return '';
-		}
-
-
 		// Set the item from the auto_item parameter
-		if (!isset($_GET['items']) && \Config::get('useAutoItem') && isset($_GET['auto_item']))
+		if (!isset($_GET['items']) && isset($_GET['auto_item']) && \Config::get('useAutoItem'))
 		{
 			\Input::setGet('items', \Input::get('auto_item'));
+		}
+
+		// Return an empty string if "items" is not set (to combine list and reader on same page)
+		if (!\Input::get('items'))
+		{
+			return '';
 		}
 
 
@@ -60,11 +51,37 @@ class ModuleJobReader extends \Module
 	protected function compile()
 	{
 
+		$this->Template->jobs = '';
+
+		if ($this->overviewPage)
+		{
+			$this->Template->referer = \PageModel::findById($this->overviewPage)->getFrontendUrl();
+			$this->Template->back = $this->customLabel ?: ($GLOBALS['TL_LANG']['MSC']['jobsOverview'] ?? null);
+		}
+		else
+		{
+			$this->Template->referer = 'javascript:history.go(-1)';
+			$this->Template->back = $GLOBALS['TL_LANG']['MSC']['goBack'];
+		}
 
 
+		// Get the job
+		$objJob = JobsModel::findByIdOrAlias(\Input::get('items'));
 
+		if ($objJob === null)
+		{
+			throw new \CoreBundle\Exception\PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+		}
 
+		// Set the default template
+		if (!$this->jobs_template)
+		{
+			$this->jobs_template = 'jobs_full';
+		}
 
+		$arrJobs = $this->parseJob($objJob);
+		$this->Template->jobs = $arrJobs;
+/*
 
 $alias = \Input::get('items');
 
@@ -138,5 +155,8 @@ $alias = \Input::get('items');
 		$this->Template->numberLabel = $GLOBALS['TL_LANG']['MSC']['song_number'];
 		$this->Template->titleLabel = $GLOBALS['TL_LANG']['MSC']['song_title'];
 		$this->Template->durationLabel = $GLOBALS['TL_LANG']['MSC']['song_duration'];
+
+*/
+
 	}
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/en/tl_jobs.php" source-language="en" target-language="de">
+        <body>
+            <trans-unit id="tl_jobs.company.0">
+                <source>Company</source>
+                <target>Unternehmen</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.1">
+                <source>Please choose the company.</source>
+                <target>Bitte wählen Sie das Unternehmen aus.</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.workingTimeModel.0">
+                <source>working time model</source>
+                <target>Arbeitszeitmodell</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.workingTimeModel.1">
+                <source>Please choose the working time model.</source>
+                <target>Bitte wählen Sie das Arbeitszeitmodell aus.</target>
+            </trans-unit>        
+        </body>
+    </file>
+</xliff>

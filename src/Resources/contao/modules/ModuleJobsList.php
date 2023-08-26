@@ -1,20 +1,13 @@
 <?php
 
-namespace Contao;
+namespace GeorgPreissl\Jobs;
 
-/**
- * Class ModuleJobList
- *
- * Front end module "job list".
- */
-class ModuleJobList extends \Module
+
+class ModuleJobsList extends ModuleJobs
 {
 
-	/**
-	 * Template
-	 * @var string
-	 */
-	protected $strTemplate = 'mod_joblist';
+
+	protected $strTemplate = 'mod_jobslist';
 
 
 	/**
@@ -27,7 +20,7 @@ class ModuleJobList extends \Module
 		{
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['job_list'][0]) . ' ###';
+			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['jobslist'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
 			$objTemplate->id = $this->id;
 			$objTemplate->link = $this->name;
@@ -45,7 +38,20 @@ class ModuleJobList extends \Module
 	 */
 	protected function compile()
 	{
+
 		
+		$objJobs = JobsModel::findBy('published', 1);
+
+
+		
+
+		if ($objJobs !== null)
+		{
+			$this->Template->jobs = $this->parseJobs($objJobs);
+		}
+
+
+/*
 		$objJobs = $this->Database->prepare("SELECT * FROM tl_jobs WHERE published=? ORDER BY tstamp DESC")->execute(1);
 
 		// Return if no jobs were found
@@ -101,5 +107,9 @@ class ModuleJobList extends \Module
 		}
 
 		$this->Template->jobs = $arrJobs;
+
+
+*/
+
 	}
 }

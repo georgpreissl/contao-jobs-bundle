@@ -29,7 +29,8 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'mode'                    => 1,
 			'fields'                  => array('title'),
 			'flag'                    => 1,
-			'panelLayout'             => 'filter;search,limit'
+			'panelLayout'             => 'filter;search,limit',
+			'child_record_callback'   => array('tl_jobs', 'generatejobRow')
 		),
 		// 'sorting' => array
 		// (
@@ -37,7 +38,6 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 		// 	'fields'                  => array('sorting'),
 		// 	'headerFields'            => array('title'),
 		// 	'panelLayout'             => 'search,limit',
-		// 	'child_record_callback'   => array('tl_jobs', 'generatejobRow')
 		// ),
 		'label' => array
 		(
@@ -83,11 +83,17 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			),
 			'toggle' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_jobs']['toggle'],
-				'icon'                => 'visible.gif',
-				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('tl_jobs', 'toggleIcon')
+				'href'                => 'act=toggle&amp;field=published',
+				'icon'                => 'visible.svg',
+				'showInHeader'        => true
 			),
+			// 'toggle' => array
+			// (
+			// 	'label'               => &$GLOBALS['TL_LANG']['tl_jobs']['toggle'],
+			// 	'icon'                => 'visible.gif',
+			// 	'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+			// 	'button_callback'     => array('tl_jobs', 'toggleIcon')
+			// ),
 			'show' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_jobs']['show'],
@@ -155,7 +161,14 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'select',
-			'options'                 => ['hochbau', 'dachbau', 'holzbau'],
+			'options'                 => array(
+				'hochbau' => 'Schmid Hochbau', 
+				'dachbau' => 'Schmid Dachbau',
+				'holzbau' => 'Schmid Holzbau',
+				'fsp-metalltechnik' => 'FSP Metalltechnik',
+				'fsp-begruenung' => 'FSP Begrünung'
+			),
+			// 'options'                 => ['hochbau', 'dachbau', 'holzbau'],
 			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "varchar(64) COLLATE ascii_bin NOT NULL default ''"
 		),
@@ -174,7 +187,10 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'select',
-			'options'                 => ['vollzeit', 'teilzeit'],
+			'options'                 => array(
+				'vollzeit' => 'Vollzeit', 
+				'teilzeit' => 'Teilzeit'
+			),
 			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "varchar(64) COLLATE ascii_bin NOT NULL default ''"
 		),
@@ -230,10 +246,10 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 		),
 		'published' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_faq']['published'],
 			'exclude'                 => true,
+			'toggle'                  => true,
 			'filter'                  => true,
-			'flag'                    => 2,
+			'flag'                    => DataContainer::SORT_INITIAL_LETTER_ASC,
 			'inputType'               => 'checkbox',
 			'eval'                    => array('doNotCopy'=>true),
 			'sql'                     => "char(1) NOT NULL default ''"
@@ -327,7 +343,7 @@ class tl_jobs extends Backend
             return '';
         }
 
-        $href .= '&amp;id='.$this->Input->get('id').'&amp;tid='.$row['id'].'&amp;state='.$row[''];
+        $href .= '&amp;id='.$this->Input->get('id').'&amp;tid='.$row['id'].'&amp;state='. ($row[''] ?? null );
 
         if (!$row['published'])
         {

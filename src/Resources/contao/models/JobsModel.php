@@ -1,13 +1,15 @@
 <?php
 
-namespace Contao;
+namespace GeorgPreissl\Jobs;
+
+use Model;
 
 /**
  * Class CdModel
  *
  * Reads and writes CDs.
  */
-class JobModel extends \Model
+class JobsModel extends Model
 {
 
     /**

@@ -15,8 +15,8 @@ array_insert($GLOBALS['BE_MOD']['content'], 1, array
 /**
  * Front end modules
  */
-$GLOBALS['FE_MOD']['miscellaneous']['joblist']   = 'GeorgPreissl\Jobs\ModuleJobList';
-$GLOBALS['FE_MOD']['miscellaneous']['jobreader'] = 'GeorgPreissl\Jobs\ModuleJobReader';
+$GLOBALS['FE_MOD']['miscellaneous']['jobslist']   = 'GeorgPreissl\Jobs\ModuleJobsList';
+$GLOBALS['FE_MOD']['miscellaneous']['jobsreader'] = 'GeorgPreissl\Jobs\ModuleJobsReader';
 
 
 /**
