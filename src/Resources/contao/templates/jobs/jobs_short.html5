@@ -1,12 +1,37 @@
+<?php \Contao\System::loadLanguageFile('tl_jobs', 'de'); ?>
 
-<div class="layout_short <?= $this->class ?>">
+<a class="job-teaser <?= $this->class ?>" href="<?= $this->link ?>"
+	data-filterable 
+	data-company="<?= $this->company ?>"
+	data-place="<?= $this->place ?>"
+	data-type="<?= $this->workingTimeModel ?>"
+	>
+	<div class="job-teaser__data job-teaser__title" ><?= $this->title ?></div>
+	<div class="job-teaser__data job-teaser__company" ><?= $this->trans('tl_jobs.company.options.'.$this->company) ?></div>
+	<div class="job-teaser__data job-teaser__place" >
+		<?php //echo file_get_contents("files/theme/img/icons/job-place.svg"); ?>
+		<span><?= $this->trans('tl_jobs.place.options.'.$this->place) ?></span>
+	</div>
+	<div class="job-teaser__data job-teaser__working-time-model" >
+		<?php //echo file_get_contents("files/theme/img/icons/job-working-time-model.svg"); ?>
+		<span><?= $this->trans('tl_jobs.workingTimeModel.options.'.$this->workingTimeModel) ?></span>
+	</div>
+	<?php
+	$this->insert('link', [
+		'type' => 'text', 
+		'icon' => 'arrow-right', 
+		// 'url' => $this->link,
+		'url' => '',
+		'label' => 'Mehr zum Job',
+		'customClass' => 'job-teaser__link',
+		'title' => 'Zur Ausschreibung'
+	]);
+	?>
+</a>
 
 
 
-  <h2><?= $this->title ?></h2>
-  <?php if($this->link): ?>
-		<a class="staff_short__link" href="<?= $this->link ?>" title="Mehr über den Job erfahren" >Mehr zum Job</a>
-	<?php endif; ?>
-	<?php //$this->showTemplateVars() ?>
 
-</div>
+<?php //$this->showTemplateVars() ?>
+
+

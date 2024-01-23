@@ -9,6 +9,38 @@
                 <source>Please choose the company.</source>
                 <target>Bitte wählen Sie das Unternehmen aus.</target>
             </trans-unit>        
+            <trans-unit id="tl_jobs.place.0">
+                <source>Location</source>
+                <target>Standort</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.place.1">
+                <source>Please choose the location.</source>
+                <target>Bitte wählen Sie den Standort aus.</target>
+            </trans-unit>
+            <trans-unit id="tl_jobs.place.options.frankenburg">
+                <source>Frankenburg</source>
+                <target>Frankenburg</target>
+            </trans-unit>
+            <trans-unit id="tl_jobs.place.options.steinhaus">
+                <source>Steinhaus</source>
+                <target>Steinhaus</target>
+            </trans-unit>
+            <trans-unit id="tl_jobs.place.options.timelkam">
+                <source>Timelkam</source>
+                <target>Timelkam</target>
+            </trans-unit>
+            <trans-unit id="tl_jobs.place.options.holzhausen">
+                <source>Holzhausen</source>
+                <target>Holzhausen</target>
+            </trans-unit>
+            <trans-unit id="tl_jobs.place.options.regau">
+                <source>Regau</source>
+                <target>Regau</target>
+            </trans-unit>
+            <trans-unit id="tl_jobs.place.options.muenchendorf">
+                <source>Münchendorf</source>
+                <target>Münchendorf</target>
+            </trans-unit>
             <trans-unit id="tl_jobs.workingTimeModel.0">
                 <source>working time model</source>
                 <target>Arbeitszeitmodell</target>
@@ -16,6 +48,38 @@
             <trans-unit id="tl_jobs.workingTimeModel.1">
                 <source>Please choose the working time model.</source>
                 <target>Bitte wählen Sie das Arbeitszeitmodell aus.</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.workingTimeModel.options.vollzeit">
+                <source>Full time</source>
+                <target>Vollzeit</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.workingTimeModel.options.teilzeit">
+                <source>Teilzeit</source>
+                <target>Teilzeit</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.options.baugruppe">
+                <source>Schmid Baugruppe</source>
+                <target>Schmid Baugruppe</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.options.hochbau">
+                <source>Schmid Hochbau</source>
+                <target>Schmid Hochbau</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.options.dachbau">
+                <source>Schmid Dachbau</source>
+                <target>Schmid Dachbau</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.options.holzbau">
+                <source>Schmid Holzbau</source>
+                <target>Schmid Holzbau</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.options.fsp-metalltechnik">
+                <source>FSP Metalltechnik</source>
+                <target>FSP Metalltechnik</target>
+            </trans-unit>        
+            <trans-unit id="tl_jobs.company.options.fsp-begruenung">
+                <source>FSP Begrünung</source>
+                <target>FSP Begrünung</target>
             </trans-unit>        
         </body>
     </file>

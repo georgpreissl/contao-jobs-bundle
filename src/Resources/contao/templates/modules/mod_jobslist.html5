@@ -1,12 +1,157 @@
-<?php $this->extend('block_unsearchable'); ?>
+<?php $this->extend('block_unsearchable_no-headline'); ?>
 
 <?php $this->block('content'); ?>
 
+    <?php if ($this->headline): ?>
+		<<?= $this->hl ?> class="mod_jobslist__hl index" ><?= $this->headline ?></<?= $this->hl ?>>
+    <?php endif; ?>
+	
+	<?php \Contao\System::loadLanguageFile('tl_jobs', 'de'); ?>
+
+
+
 	<?php if (empty($this->jobs)): ?>
-		<p class="empty"><?= $this->empty ?></p>
+		<p class="empty">Aktuelle sind keine Jobs verfügbar.</p>
 	<?php else: ?>
-		<?= implode('', $this->jobs) ?>
-		<?= $this->pagination ?>
-	<?php endif; ?>
+
+		<?php
+		$strQuery = $_SERVER['QUERY_STRING'];
+		// dump($strQuery);
+
+		// for testing:
+		// $query = 'type=teilzeit&company=hochbau';
+		// $query = 'type=teilzeit';
+		// $query = '';
+
+		$place = isset($_GET['place']) ? $_GET['place'] : '';
+		$company = isset($_GET['company']) ? $_GET['company'] : '';
+		$type = isset($_GET['type']) ? $_GET['type'] : '';
+
+// dump($this->jobs);
+
+
+		?>
+
+		<div class="mod_jobslist__header">
+			<div class="mod_jobslist__filter">
+				<?php if(count($this->companiesOptions) > 1): ?>
+					<div class="mod_jobslist__filter-prop">
+						<label class="mod_jobslist__filter-label" for="company">Unternehmen</label>
+						<select name="company" onchange="javascript:handleSelect(this)">
+							<option value="company=all">Alle</option>
+							<?php foreach($this->companiesOptions as $optCompany): ?>
+								<option value="company=<?= $optCompany ?>" <?= $company == $optCompany ? 'selected="selected"' : null ?> ><?= $this->trans('tl_jobs.company.options.'.$optCompany) ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				<?php endif; ?>
+				<?php if(count($this->placesOptions) > 1): ?>
+					<div class="mod_jobslist__filter-prop">
+						<label class="mod_jobslist__filter-label" for="type">Standort</label>
+						<select name="type" onchange="javascript:handleSelect(this)">
+							<option value="place=all">Alle</option>
+							<?php foreach($this->placesOptions as $optPlace): ?>
+								<option value="place=<?= $optPlace ?>" <?= $place == $optPlace ? 'selected="selected"' : null ?> ><?= $this->trans('tl_jobs.place.options.'.$optPlace) ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				<?php endif; ?>
+				<?php if(count($this->workingTimeModelsOptions) > 1): ?>
+					<div class="mod_jobslist__filter-prop">
+						<label class="mod_jobslist__filter-label" for="type">Arbeitszeit</label>
+						<select name="type" onchange="javascript:handleSelect(this)">
+							<option value="type=all">Alle</option>
+							<option value="type=vollzeit" <?= $type == "vollzeit" ? 'selected="selected"' : null ?> >Vollzeit</option>
+							<option value="type=teilzeit" <?= $type == "teilzeit" ? 'selected="selected"' : null ?> >Teilzeit</option>
+						</select>
+					</div>
+				<?php endif; ?>
+			</div>
+			<?php
+			$this->insert('link', [
+				'type' => 'text', 
+				'icon' => 'arrow-right', 
+				'url' => '/karriere',
+				'label' => 'Filter zurücksetzen',
+				'customClass' => 'mod_jobslist__reset',
+				'title' => 'Alle Jobs anzeigen',
+			]); 
+			?>
+		</div>
+
+		<script type="text/javascript">
+		function handleSelect(elm)
+		{
+			var stNewQueryPart = elm.value;
+			var arNewQueryPart = stNewQueryPart.split('=');
+			var stNewKey = arNewQueryPart[0];
+			var stNewValue = arNewQueryPart[1];
+			console.log('stNewKey: ',stNewKey);
+
+			var stQuery = "<?= $strQuery ?>";
+			var arNewQuery = [];
+			var queryPartExists = false;
+
+			if(stQuery){
+				console.log('stQuery vorhanden!');
+				var arQuery = stQuery.split('&');
+
+				for (let i = 0; i < arQuery.length; i++) {
+					var stQueryPart = arQuery[i];
+					var arQueryPart = stQueryPart.split('=');
+					var stQueryKey = arQueryPart[0];
+					console.log('stQueryKey: ',stQueryKey);
+					if(stQueryKey == stNewKey){
+						queryPartExists = true;
+						console.log('stNewValue: ',stNewValue);
+						if(stNewValue !== 'all') {
+							console.log('replace');
+							arNewQuery.push(stNewQueryPart);
+							stNewQueryPart = '';
+							
+						}
+					} else {
+						console.log('stQueryPart: ',stQueryPart);
+						arNewQuery.push(stQueryPart);
+					}
+				}
+			}
+			if(!queryPartExists){
+				arNewQuery.push(stNewQueryPart);
+			}
+			console.log('arNewQuery: ',arNewQuery);
+			stQuery = arNewQuery.join('&');	
+				
+			console.log('stQuery: ',stQuery);
+			window.location = "/karriere?" + stQuery;
+			
+		}
+		</script>
+
+
+		<div class="mod_jobslist__info">
+			<div class="mod_jobslist__info-count" ><span data-count="Job" ></span> gefunden.</div>
+			<div class="mod_jobslist__info-reset" data-alert="Job"></div>
+
+		</div>
+
+		<div class="mod_jobslist__col-labels">
+			<span class="mod_jobslist__col-label">Job-Titel</span>
+			<span class="mod_jobslist__col-label">Unternehmen</span>
+			<span class="mod_jobslist__col-label">Standort</span>
+			<span class="mod_jobslist__col-label">Arbeitszeitmodell</span>
+		</div>
+		<div class="mod_jobslist__items">
+
+			<?= implode('', $this->jobs) ?>
+			<?= $this->pagination ?>
+		</div>
+
+
+
+	  <?php endif; ?>
 
 <?php $this->endblock(); ?>
+
+
+

@@ -43,10 +43,61 @@ class ModuleJobsList extends ModuleJobs
 		$objJobs = JobsModel::findBy('published', 1);
 
 
-		
 
 		if ($objJobs !== null)
 		{
+
+			$arrCompanies = array(
+				'baugruppe', 
+				'hochbau', 
+				'dachbau',
+				'holzbau',
+				'fsp-metalltechnik',
+				'fsp-begruenung'
+			);
+			$arrCompaniesOptions = array();
+			foreach($arrCompanies as $company){
+				// dump($company);
+				if(JobsModel::countBy('company', $company)){
+					$arrCompaniesOptions[] = $company;
+				}
+			}
+
+			$arrPlaces = array(
+				'frankenburg', 
+				'steinhaus',
+				'timelkam',
+				'holzhausen',
+				'regau',
+				'muenchendorf'
+			);
+			$arrPlacesOptions = array();
+			foreach($arrPlaces as $place){
+				// dump($place);
+				if(JobsModel::countBy('place', $place)){
+					$arrPlacesOptions[] = $place;
+				}
+			}
+
+			$arrWorkingTimeModels = array(
+				'vollzeit',
+				'teilzeit'
+			);
+			$arrWorkingTimeModelsOptions = array();
+			foreach($arrWorkingTimeModels as $WorkingTimeModel){
+				if(JobsModel::countBy('workingTimeModel', $WorkingTimeModel)){
+					$arrWorkingTimeModelsOptions[] = $WorkingTimeModel;
+				}
+			}
+
+
+			
+
+
+
+			$this->Template->companiesOptions = $arrCompaniesOptions;
+			$this->Template->placesOptions = $arrPlacesOptions;
+			$this->Template->workingTimeModelsOptions = $arrWorkingTimeModelsOptions;
 			$this->Template->jobs = $this->parseJobs($objJobs);
 		}
 

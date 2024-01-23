@@ -106,7 +106,7 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{data_legend},title,alias,gender,company,location,workingTimeModel,jobAdDate,entryDate;{content_legend},teaserText,text,photos'
+		'default'                     => '{data_legend},title,alias,gender,company,location,place,workingTimeModel,jobAdDate,entryDate;{content_legend},teaserText,text,photos'
 	),
 
 	// Fields
@@ -162,13 +162,14 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'options'                 => array(
-				'hochbau' => 'Schmid Hochbau', 
-				'dachbau' => 'Schmid Dachbau',
-				'holzbau' => 'Schmid Holzbau',
-				'fsp-metalltechnik' => 'FSP Metalltechnik',
-				'fsp-begruenung' => 'FSP Begrünung'
+				'baugruppe', 
+				'hochbau', 
+				'dachbau',
+				'holzbau',
+				'fsp-metalltechnik',
+				'fsp-begruenung'
 			),
-			// 'options'                 => ['hochbau', 'dachbau', 'holzbau'],
+			'reference'               => &$GLOBALS['TL_LANG']['tl_jobs']['company']['options'],
 			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "varchar(64) COLLATE ascii_bin NOT NULL default ''"
 		),
@@ -181,6 +182,23 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'eval'                    => array('maxlength'=>128, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(128) NOT NULL default ''"
 		),
+		'place' => array
+		(
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'select',
+			'options'                 => array(
+				'frankenburg', 
+				'steinhaus',
+				'timelkam',
+				'holzhausen',
+				'regau',
+				'muenchendorf'
+			),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_jobs']['place']['options'],
+			'eval'                    => array('tl_class'=>'w50'),
+			'sql'                     => "varchar(64) COLLATE ascii_bin NOT NULL default ''"
+		),
 		'workingTimeModel' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_jobs']['workingTimeModel'],
@@ -188,9 +206,10 @@ $GLOBALS['TL_DCA']['tl_jobs'] = array
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'options'                 => array(
-				'vollzeit' => 'Vollzeit', 
-				'teilzeit' => 'Teilzeit'
+				'vollzeit', 
+				'teilzeit'
 			),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_jobs']['workingTimeModel']['options'],
 			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "varchar(64) COLLATE ascii_bin NOT NULL default ''"
 		),
