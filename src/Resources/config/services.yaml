@@ -2,5 +2,4 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-    GeorgPreissl\Jobs\:
-        resource: ../../../*
+    GeorgPreissl\Jobs\Controller\FrontendModule\ExampleModuleController:

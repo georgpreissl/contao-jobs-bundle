@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @FrontendModule("xxx", category="miscellaneous")
+ * @FrontendModule("example", category="miscellaneous")
  */
 class ExampleModuleController extends AbstractFrontendModuleController
 {
